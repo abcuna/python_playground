@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Notes App</h1>
+
+    <!-- Display all notes -->
+    <div id="notes" class="mb-4"></div>
+
+    <!-- Form to add a new note -->
+    <div class="mb-4">
+        <h2>Add New Note</h2>
+        <form id="addNoteForm">
+            <div class="mb-3">
+                <label for="noteTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="noteTitle" required>
+            </div>
+            <div class="mb-3">
+                <label for="noteContent" class="form-label">Content</label>
+                <textarea class="form-control" id="noteContent" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Note</button>
+        </form>
+    </div>
+
+    <!-- Form to export notes -->
+    <div class="mb-4">
+        <h2>Export Notes</h2>
+        <form id="exportNotesForm">
+            <div class="mb-3">
+                <label for="exportNotes" class="form-label">Select Notes to Export (use comma separated IDs)</label>
+                <input type="text" class="form-control" id="exportNotes" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Export Notes</button>
+        </form>
+    </div>
+
+    <!-- Form to import notes -->
+    <div class="mb-4">
+        <h2>Import Notes</h2>
+        <form id="importNotesForm" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="importFile" class="form-label">Select CSV File to Import</label>
+                <input type="file" class="form-control" id="importFile" name="file" required accept=".csv">
+            </div>
+            <button type="submit" class="btn btn-primary">Import Notes</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal for editing notes -->
+<div class="modal fade" id="editNoteModal" tabindex="-1" aria-labelledby="editNoteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editNoteModalLabel">Edit Note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editNoteForm">
+                    <input type="hidden" id="editNoteId">
+                    <div class="mb-3">
+                        <label for="editNoteTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="editNoteTitle" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editNoteContent" class="form-label">Content</label>
+                        <textarea class="form-control" id="editNoteContent" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    // Function to fetch and display all notes
+    function getAllNotes() {
+        axios.get('http://127.0.0.1:5001/notas')
+            .then(response => {
+                const notes = response.data;
+                const notesHTML = notes.map(note => `
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">${note.note_title}</h5>
+                            <p class="card-text">${note.note_content}</p>
+                            <p class="card-text"><small class="text-muted">Created at: ${note.created_at}</small></p>
+                            <button class="btn btn-primary edit-note" data-note-id="${note.id}" data-bs-toggle="modal" data-bs-target="#editNoteModal">Edit</button>
+                            <button class="btn btn-danger delete-note" data-note-id="${note.id}">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+                document.getElementById('notes').innerHTML = notesHTML;
+
+                // Add event listener to delete buttons
+                document.querySelectorAll('.delete-note').forEach(btn => {
+                    btn.addEventListener('click', deleteNote);
+                });
+
+                // Add event listener to edit buttons
+                document.querySelectorAll('.edit-note').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        loadNoteForEdit.call(this);
+                    });
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Function to load note data for editing
+    function loadNoteForEdit() {
+    const noteId = parseInt(this.getAttribute('data-note-id'));
+    axios.get(`http://127.0.0.1:5001/notas/${noteId}`)
+        .then(response => {
+            const note = response.data[0]; // Note is in an array, so we access the first element
+            document.getElementById('editNoteId').value = note.id;
+            document.getElementById('editNoteTitle').value = note.note_title;
+            document.getElementById('editNoteContent').value = note.note_content;
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+    // Function to save edited note
+    document.getElementById('editNoteForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const noteId = document.getElementById('editNoteId').value;
+        const noteTitle = document.getElementById('editNoteTitle').value;
+        const noteContent = document.getElementById('editNoteContent').value;
+
+        axios.put(`http://127.0.0.1:5001/notas/${noteId}`, { note_title: noteTitle, note_content: noteContent })
+            .then(() => {
+                getAllNotes();
+                document.getElementById('editNoteModal').querySelector('.btn-close').click(); // Trigger click event on close button
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+
+    // Function to add a new note
+    document.getElementById('addNoteForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const noteTitle = document.getElementById('noteTitle').value;
+        const noteContent = document.getElementById('noteContent').value;
+
+        axios.post('http://127.0.0.1:5001/notas', { note_title: noteTitle, note_content: noteContent })
+            .then(() => {
+                getAllNotes();
+                document.getElementById('noteTitle').value = '';
+                document.getElementById('noteContent').value = '';
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+
+    // Function to delete a note
+    function deleteNote() {
+        const noteId = this.dataset.noteId;
+        axios.delete(`http://127.0.0.1:5001/notas/${noteId}`)
+            .then(() => {
+                getAllNotes();
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Function to export notes
+    document.getElementById('exportNotesForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const notesToExport = document.getElementById('exportNotes').value.split(',');
+        const queryParams = notesToExport.map(id => `${id}`).join('&');
+        window.location.href = `http://127.0.0.1:5001/notas/${queryParams}/export`;
+    });
+
+    // Function to import notes
+    document.getElementById('importNotesForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const file = document.getElementById('importFile').files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        axios.post('http://127.0.0.1:5001/notas/import', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        .then(() => {
+            getAllNotes();
+            document.getElementById('importFile').value = '';
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    // Initial call to get all notes when the page loads
+    getAllNotes();
+</script>
+
+
+</body>
+</html>
