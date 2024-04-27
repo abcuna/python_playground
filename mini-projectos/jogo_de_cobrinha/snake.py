@@ -7,23 +7,23 @@ class COBRA:
         self.direcao = Vector2(0,0)
         self.novo_bloco = False
 
-        self.head_up = pygame.image.load('aulas_python/resources/03_snake/visuais/head_up.png').convert_alpha()
-        self.head_down = pygame.image.load('aulas_python/resources/03_snake/visuais/head_down.png').convert_alpha()
-        self.head_right = pygame.image.load('aulas_python/resources/03_snake/visuais/head_right.png').convert_alpha()
-        self.head_left = pygame.image.load('aulas_python/resources/03_snake/visuais/head_left.png').convert_alpha ()
+        self.head_up = pygame.image.load('mini-projectos/resources/resources/visuais/head_up.png').convert_alpha()
+        self.head_down = pygame.image.load('mini-projectos/resources/resources/visuais/head_down.png').convert_alpha()
+        self.head_right = pygame.image.load('mini-projectos/resources/resources/visuais/head_right.png').convert_alpha()
+        self.head_left = pygame.image.load('mini-projectos/resources/resources/visuais/head_left.png').convert_alpha ()
 
-        self.tail_up = pygame.image.load('aulas_python/resources/03_snake/visuais/tail_up.png'). convert_alpha()
-        self.tail_down = pygame.image.load('aulas_python/resources/03_snake/visuais/tail_down.png').convert_alpha()
-        self.tail_right = pygame.image.load('aulas_python/resources/03_snake/visuais/tail_right.png').convert_alpha()
-        self.tail_left = pygame.image.load('aulas_python/resources/03_snake/visuais/tail_left.png').convert_alpha()
+        self.tail_up = pygame.image.load('mini-projectos/resources/resources/visuais/tail_up.png'). convert_alpha()
+        self.tail_down = pygame.image.load('mini-projectos/resources/resources/visuais/tail_down.png').convert_alpha()
+        self.tail_right = pygame.image.load('mini-projectos/resources/resources/visuais/tail_right.png').convert_alpha()
+        self.tail_left = pygame.image.load('mini-projectos/resources/resources/visuais/tail_left.png').convert_alpha()
 
-        self.corpo_vertical = pygame.image.load('aulas_python/resources/03_snake/visuais/body_vertical.png').convert_alpha()
-        self.corpo_horizontal = pygame.image.load('aulas_python/resources/03_snake/visuais/body_horizontal.png').convert_alpha()
+        self.corpo_vertical = pygame.image.load('mini-projectos/resources/resources/visuais/body_vertical.png').convert_alpha()
+        self.corpo_horizontal = pygame.image.load('mini-projectos/resources/resources/visuais/body_horizontal.png').convert_alpha()
 
-        self.body_tr = pygame.image.load('aulas_python/resources/03_snake/visuais/body_tr.png').convert_alpha()
-        self.body_tl = pygame.image.load('aulas_python/resources/03_snake/visuais/body_tl.png').convert_alpha()
-        self.body_br = pygame.image.load('aulas_python/resources/03_snake/visuais/body_br.png').convert_alpha()
-        self.body_bl = pygame.image.load('aulas_python/resources/03_snake/visuais/body_bl.png').convert_alpha()
+        self.body_tr = pygame.image.load('mini-projectos/resources/resources/visuais/body_tr.png').convert_alpha()
+        self.body_tl = pygame.image.load('mini-projectos/resources/resources/visuais/body_tl.png').convert_alpha()
+        self.body_br = pygame.image.load('mini-projectos/resources/resources/visuais/body_br.png').convert_alpha()
+        self.body_bl = pygame.image.load('mini-projectos/resources/resources/visuais/body_bl.png').convert_alpha()
 
 
     def desenhar_cobra(self):
@@ -175,7 +175,7 @@ tamanho_celula = 40
 valor_celula = 20 
 tela = pygame.display.set_mode((tamanho_celula * valor_celula,tamanho_celula * valor_celula))
 relogio = pygame.time.Clock()
-maca = pygame.image.load('aulas_python/resources/03_snake/visuais/apple.png').convert_alpha()
+maca = pygame.image.load('mini-projectos/resources/resources/visuais/apple.png').convert_alpha()
 tipo_de_letra = pygame.font.Font(None, 50)  
 main_game = MAIN()
 

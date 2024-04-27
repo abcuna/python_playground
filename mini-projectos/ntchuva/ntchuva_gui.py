@@ -39,11 +39,11 @@ max_recursion = 20
 class TABULEIRO:
     def __init__(self) -> None:
 
-        self.tabuleiro_vazio = pygame.image.load('aulas_python/resources/02_ntchuva/tabuleiro/tabuleiro_vazio.png')
-        self.cova_pontos = pygame.image.load('aulas_python/resources/02_ntchuva/tabuleiro/covas_pontos.png')
+        self.tabuleiro_vazio = pygame.image.load('mini-projectos/resources/02_ntchuva/tabuleiro/tabuleiro_vazio.png')
+        self.cova_pontos = pygame.image.load('mini-projectos/resources/02_ntchuva/tabuleiro/covas_pontos.png')
         
-        self.valores_pedras = {i: pygame.image.load(f'aulas_python/resources/02_ntchuva/tabuleiro/cova_{i:02d}.png') for i in range(13)}
-        self.valores_pedras.update({13: pygame.image.load('aulas_python/resources/02_ntchuva/tabuleiro/cova_12+.png')})
+        self.valores_pedras = {i: pygame.image.load(f'mini-projectos/resources/02_ntchuva/tabuleiro/cova_{i:02d}.png') for i in range(13)}
+        self.valores_pedras.update({13: pygame.image.load('mini-projectos/resources/02_ntchuva/tabuleiro/cova_12+.png')})
 
     def desenhar_tabuleiro(self):
         self.rect_cova_pontos = self.cova_pontos.get_rect()
