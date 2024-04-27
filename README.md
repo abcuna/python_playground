@@ -4,4 +4,4 @@ Quando um mini-projecto ganhar pernas será transferido para seu repositório in
 
 |  # | MINI-PROJECTO  | REPOSITÓRIO  |
 | ------------ | ------------ | ------------ |
-|  1 | Ntchuva  |  [ob1-cuna/ntchuva](https://github.com/ob1-cuna/ntchuva "ob1-cuna/ntchuva") |
+|  1 | Ntchuva  |  [abcuna/ntchuva](https://github.com/abcuna/ntchuva "abcuna/ntchuva") |
