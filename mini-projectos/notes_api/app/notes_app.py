@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, send_file
 from werkzeug.utils import secure_filename
 import os
-from aulas_python.notes_api.app.recursos import notes_functions
+from recursos import notes_functions
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -19,6 +19,8 @@ if not os.path.exists(UPLOAD_DIRECTORY):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @app.route('/notas', methods=['GET'])
 def get_all_notes():
     all_notes = [{'id': note_id, **note} for note_id, note in notes.items()]
@@ -59,7 +61,7 @@ def delete_note(note_id: int):
         return jsonify([{'error': 'Note does not exist'}]), 404
     note_title = note['note_title']
     notes_functions.delete_note(note_id)
-    return jsonify([{"message": f"Note '{note_title}' deleted."}])
+    return jsonify([{"message": f"Note '{note_title}' deleted."}]), 200
 
 
 @app.route('/notas/<notes_list>/export', methods=['GET'])
@@ -88,7 +90,7 @@ def import_notes():
         filename = secure_filename(file.filename)
         file.save(os.path.join(UPLOAD_DIRECTORY, filename))
         notes_functions.import_notes(filename)
-        return [jsonify({'message': 'Notes imported successfully'})]
+        return jsonify([{'message': 'Notes imported successfully'}]), 200
     else:
         return jsonify({'error': 'Invalid file type, only .csv files are allowed'}), 400
 

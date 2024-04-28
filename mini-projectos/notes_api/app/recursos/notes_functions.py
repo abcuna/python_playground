@@ -2,58 +2,7 @@ from datetime import datetime
 import csv
 
 
-notes = {
-    1: {
-        'note_title': 'Note 1',
-        'note_content': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.',
-        'created_at': '2024-04-24 19:39:59.582078'
-    },
-    2: {
-        'note_title': 'Note 2',
-        'note_content': 'Praesent vestibulum dapibus nibh. Etiam iaculis nunc ac metus. Ut id nisl quis enim dignissim sagittis. Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros.',
-        'created_at': '2024-04-24 19:40:21.333580'
-    },
-    3: {
-        'note_title': 'Note 3',
-        'note_content': 'Nullam sit amet magna in magna gravida vehicula. Integer tempor. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo.',
-        'created_at': '2024-04-25 10:00:00'
-    },
-    4: {
-        'note_title': 'Note 4',
-        'note_content': 'Praesent egestas neque eu enim. Ut id nisl quis enim dignissim sagittis. Donec sit amet nisl. Aliquam semper ipsum sit amet velit.',
-        'created_at': '2024-04-25 10:00:00'
-    },
-    5: {
-        'note_title': 'Note 5',
-        'note_content': 'Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus.',
-        'created_at': '2024-04-25 10:00:00'
-    },
-    6: {
-        'note_title': 'Note 6',
-        'note_content': 'Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.',
-        'created_at': '2024-04-25 10:00:00'
-    },
-    7: {
-        'note_title': 'Note 7',
-        'note_content': 'Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.',
-        'created_at': '2024-04-25 10:00:00'
-    },
-    8: {
-        'note_title': 'Note 8',
-        'note_content': 'Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue.',
-        'created_at': '2024-04-25 10:00:00'
-    },
-    9: {
-        'note_title': 'Note 9',
-        'note_content': 'Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.',
-        'created_at': '2024-04-25 10:00:00'
-    },
-    10: {
-        'note_title': 'Note 10',
-        'note_content': 'Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.',
-        'created_at': '2024-04-25 10:00:00'
-    }
-}
+notes = {}
 
 
 
